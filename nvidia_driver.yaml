@@ -11,14 +11,14 @@
         update_cache: yes
 
     - name: Add RPM Fusion repositories
-      packages:
+      package:
         name:
           - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
           - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
         state: present
 
     - name: Install NVIDIA packages
-      packages:
+      package:
         name:
           - kernel-devel
           - akmod-nvidia
@@ -27,13 +27,14 @@
 
     - name: Enable NVIDIA power services
       service:
-        name:
-          - nvidia-hibernate
-          - nvidia-suspend
-          - nvidia-resume
-          - nvidia-powerd
+        name: "{{ item }}"
         enabled: yes
         state: started
+      loop:
+        - nvidia-hibernate
+        - nvidia-suspend
+        - nvidia-resume
+        - nvidia-powerd
 
     - name: Reboot system
       reboot:
