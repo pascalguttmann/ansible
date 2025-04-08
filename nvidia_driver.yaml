@@ -16,6 +16,7 @@
           - kernel-devel
           - akmod-nvidia
           - xorg-x11-drv-nvidia-cuda
+          - nvtop
         state: present
 
     - name: Enable NVIDIA power services
