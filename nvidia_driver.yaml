@@ -2,19 +2,11 @@
 
 - hosts: localhost
   connection: local
-  become: yes
   tasks:
     - name: Update all packages
       package:
         name: "*"
         state: latest
         update_cache: yes
-      register: package_update
+      become: yes
 
-    - name: Display package update progress
-      debug:
-        msg: "Updating packages... {{ package_update.results | length }} of {{ package_update.results | length }}"
-      loop: "{{ package_update.results }}"
-      loop_control:
-        loop_var: outer_item
-      when: outer_item is changed
