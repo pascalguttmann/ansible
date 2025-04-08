@@ -6,3 +6,9 @@ Ansible Configuration Files
 
 1. Setup Network Connection
 2. Install Ansible `sudo dnf install ansible`
+
+## Running Playbook with Become Password
+
+```bash
+ansible-playbook playbook.yaml --ask-become-pass
+```
