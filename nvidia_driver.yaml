@@ -2,11 +2,40 @@
 
 - hosts: localhost
   connection: local
+  become: yes
   tasks:
     - name: Update all packages
       package:
         name: "*"
         state: latest
         update_cache: yes
-      become: yes
 
+    - name: Add RPM Fusion repositories
+      packages:
+        name:
+          - https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+          - https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        state: present
+
+    - name: Install NVIDIA packages
+      packages:
+        name:
+          - kernel-devel
+          - akmod-nvidia
+          - xorg-x11-drv-nvidia-cuda
+        state: present
+
+    - name: Enable NVIDIA power services
+      service:
+        name:
+          - nvidia-hibernate
+          - nvidia-suspend
+          - nvidia-resume
+          - nvidia-powerd
+        enabled: yes
+        state: started
+
+    - name: Reboot system
+      reboot:
+        msg: "Rebooting system to apply NVIDIA changes"
+        reboot_timeout: 60
