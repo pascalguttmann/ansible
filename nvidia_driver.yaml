@@ -1,0 +1,11 @@
+---
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Update all packages
+      package:
+        name: "*"
+        state: latest
+        update_cache: yes
+
