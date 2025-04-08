@@ -7,7 +7,7 @@
     - name: Add COPR repository
       community.general.copr:
         name: lukenukem/asus-linux
-        state: present
+        state: enabled
 
     - name: Install asusctl and supergfxctl
       become: yes
