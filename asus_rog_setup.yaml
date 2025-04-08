@@ -17,8 +17,12 @@
           - supergfxctl
         state: present
 
-    - name: Enable supergfxd.service
+    - name: Enable asusd.service and supergfxd.service
       service:
-        name: supergfxd.service
+        name: "{{ item }}"
         enabled: yes
         state: started
+      loop:
+        - asusd
+        - supergfxd
+
