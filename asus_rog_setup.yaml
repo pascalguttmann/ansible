@@ -1,0 +1,24 @@
+---
+
+- hosts: localhost
+  connection: local
+  tasks:
+  
+    - name: Add COPR repository
+      community.general.copr:
+        name: lukenukem/asus-linux
+        state: present
+
+    - name: Install asusctl and supergfxctl
+      become: yes
+      package:
+        name:
+          - asusctl
+          - supergfxctl
+        state: present
+
+    - name: Enable supergfxd.service
+      service:
+        name: supergfxd.service
+        enabled: yes
+        state: started
