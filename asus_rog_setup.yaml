@@ -1,10 +1,11 @@
 ---
 
-- hosts: localhost
+- name: Install ASUS Linux tools and service
+  hosts: localhost
   connection: local
   become: yes
   tasks:
-  
+
     - name: Add COPR repository
       community.general.copr:
         name: lukenukem/asus-linux
@@ -25,4 +26,43 @@
       loop:
         - asusd
         - supergfxd
+
+- name: Configure asusctl
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: Set battery charge limit
+      command: /usr/bin/asusctl -c 100
+
+    - name: Set keyboard lighting jenkins
+      command: /usr/bin/asusctl aura static
+
+    - name: Disable slash lighting
+      command: /usr/bin/asusctl slash --disable
+
+- name: Add keyboard shortcut to cycle power mode
+  hosts: localhost
+  vars:
+    cycle_power_mode_script_path: "/usr/local/bin/cycle-power-mode.sh"
+  tasks:
+    - name: Check which custom keybindings are already set
+      command: gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings
+      register: custom_keybindings
+
+    - name: Set custom keyboard shortcut for cycling power mode
+      command: gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/']"
+      when: "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/' not in custom_keybindings.stdout"
+
+    - name: Add cycle power mode shortcut binding
+      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ name 'Cycle power mode'
+      when: "'Cycle power mode' not in custom_keybindings.stdout"
+
+    - name: Set the command for cycle power mode shortcut
+      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ command '{{ cycle_power_mode_script_path }}'
+      when: "'{{ cycle_power_mode_script_path }}' not in custom_keybindings.stdout"
+
+    - name: Set the shortcut key for cycle power mode
+      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ binding '<Launch4>'
+      when: "'<Launch4>' not in custom_keybindings.stdout"
 
