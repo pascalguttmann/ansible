@@ -1,11 +1,9 @@
 ---
-
 - name: Install ASUS Linux tools and service
   hosts: localhost
   connection: local
   become: yes
   tasks:
-
     - name: Add COPR repository
       community.general.copr:
         name: lukenukem/asus-linux
@@ -31,7 +29,6 @@
   hosts: localhost
   connection: local
   tasks:
-
     - name: Set battery charge limit
       command: /usr/bin/asusctl -c 100
 
@@ -47,7 +44,6 @@
   vars:
     cycle_power_mode_script_path: "/usr/local/bin/cycle_power_mode.sh"
   tasks:
-
     - name: Copy cycle_power_mode.sh
       copy:
         src: cycle_power_mode.sh.j2
@@ -73,4 +69,3 @@
     - name: Set the shortcut key for cycle power mode
       command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ binding '<Launch4>'
       when: "'<Launch4>' not in custom_keybindings.stdout"
-
