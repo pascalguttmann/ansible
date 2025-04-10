@@ -45,6 +45,7 @@
     cycle_power_mode_script_path: "/usr/local/bin/cycle_power_mode.sh"
   tasks:
     - name: Copy cycle_power_mode.sh
+      become: yes
       copy:
         src: cycle_power_mode.sh.j2
         dest: "{{ cycle_power_mode_script_path }}"
