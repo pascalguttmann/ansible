@@ -43,9 +43,11 @@
 
 - name: Add keyboard shortcut to cycle power mode
   hosts: localhost
+  connection: local
   vars:
     cycle_power_mode_script_path: "/usr/local/bin/cycle_power_mode.sh"
   tasks:
+
     - name: Copy cycle_power_mode.sh
       template:
         src: cycle_power_mode.sh.j2
