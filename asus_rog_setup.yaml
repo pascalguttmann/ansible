@@ -49,10 +49,10 @@
   tasks:
 
     - name: Copy cycle_power_mode.sh
-      template:
+      copy:
         src: cycle_power_mode.sh.j2
         dest: "{{ cycle_power_mode_script_path }}"
-      mode: '0755'
+        mode: '0755'
 
     - name: Check which custom keybindings are already set
       command: gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings
