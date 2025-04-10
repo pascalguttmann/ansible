@@ -32,7 +32,7 @@
     - name: Set battery charge limit
       command: /usr/bin/asusctl -c 100
 
-    - name: Set keyboard lighting jenkins
+    - name: Set keyboard lighting static
       command: /usr/bin/asusctl aura static
 
     - name: Disable slash lighting
