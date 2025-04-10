@@ -12,3 +12,5 @@ Ansible Configuration Files
 ```bash
 ansible-playbook playbook.yaml --ask-become-pass
 ```
+
+To make a check run, without performing changes use `--check` option.
