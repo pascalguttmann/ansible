@@ -68,7 +68,7 @@
 
     - name: Set the command for cycle power mode shortcut
       command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ command '{{ cycle_power_mode_script_path }}'
-      when: "'{{ cycle_power_mode_script_path }}' not in custom_keybindings.stdout"
+      when: "cycle_power_mode_script_path not in custom_keybindings.stdout"
 
     - name: Set the shortcut key for cycle power mode
       command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybindings:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ binding '<Launch4>'
