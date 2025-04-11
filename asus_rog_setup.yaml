@@ -43,6 +43,9 @@
   connection: local
   vars:
     cycle_power_mode_script_path: "/usr/local/bin/cycle_power_mode.sh"
+    cycle_power_mode_name: "Cycle Power Mode"
+    cycle_power_mode_command: "/usr/local/bin/cycle_power_mode.sh"
+    cycle_power_mode_binding: "Launch4"
   tasks:
     - name: Copy cycle_power_mode.sh
       become: yes
@@ -53,20 +56,38 @@
 
     - name: Check which custom keybindings are already set
       command: gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings
-      register: custom_keybindings
+      register: check_custom_keybindings
 
     - name: Add custom keyboard scheema key cycle-power-mode
       command: gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/']"
-      when: "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/' not in custom_keybindings.stdout"
+      when: "'/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/' not in check_custom_keybindings.stdout"
+
+
+    - name: Check cycle-power-mode key "name"
+      command: gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ name
+      register: check_cycle_power_mode_name
+      ignore_errors: yes
 
     - name: Set cycle-power-mode key "name"
-      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ name 'Cycle power mode'
-      when: "'Cycle power mode' not in custom_keybindings.stdout"
+      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ name '{{ cycle_power_mode_name }}'
+      when: "cycle_power_mode_name not in check_cycle_power_mode_name.stdout"
+
+
+    - name: Check cycle-power-mode key "command"
+      command: gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ command
+      register: check_cycle_power_mode_command
+      ignore_errors: yes
 
     - name: Set cycle-power-mode key "command"
-      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ command '{{ cycle_power_mode_script_path }}'
-      when: "cycle_power_mode_script_path not in custom_keybindings.stdout"
+      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ command '{{ cycle_power_mode_command }}'
+      when: "cycle_power_mode_command not in check_cycle_power_mode_command.stdout"
+
+
+    - name: Check cycle-power-mode key "binding"
+      command: gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ binding
+      register: check_cycle_power_mode_binding
+      ignore_errors: yes
 
     - name: Set cycle-power-mode key "binding"
-      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ binding 'Launch4'
-      when: "'<Launch4>' not in custom_keybindings.stdout"
+      command: gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/cycle-power-mode/ binding '{{ cycle_power_mode_binding }}'
+      when: "cycle_power_mode_binding not in check_cycle_power_mode_binding.stdout"
