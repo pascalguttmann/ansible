@@ -32,6 +32,9 @@
     - name: Set battery charge limit
       command: /usr/bin/asusctl -c 100
 
+    - name: Enable keyboard lighting
+      command: /usr/bin/asusctl aura-power keyboard --awake
+
     - name: Set keyboard lighting static
       command: /usr/bin/asusctl aura static
 
