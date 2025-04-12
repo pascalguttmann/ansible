@@ -1,0 +1,65 @@
+---
+- name: Configure General Settings
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install dconf-editor
+      package:
+        name:
+          - dconf-editor # GUI Editor for gsettings schemas and keys
+        state: present
+
+    - name: Disable screen dimming
+      ansible.builtin.dconf:
+        key: /org/gnome/settings-daemon/plugins/power/idle-dim
+        value: false
+
+    - name: Set Session Idle Time
+      ansible.builtin.dconf:
+        key: /org/gnome/desktop/session/idle-delay
+        value: "uint32 1800"
+
+    - name: Set Sleep Timeout (AC)
+      ansible.builtin.dconf:
+        key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-timeout
+        value: 10800
+
+    - name: Set Sleep Timeout (Battery)
+      ansible.builtin.dconf:
+        key: /org/gnome/settings-daemon/plugins/power/sleep-inactive-battery-timeout
+        value: 5400
+
+    - name: Set Power Button Action
+      ansible.builtin.dconf:
+        key: /org/gnome/settings-daemon/plugins/power/power-button-action
+        value: 'interactive'
+
+    - name: Set Show Battery Percentage
+      ansible.builtin.dconf:
+        key: /org/gnome/desktop/interface/show-battery-percentage
+        value: true
+
+    - name: Set Clock 24h Format
+      ansible.builtin.dconf:
+        key: /org/gnome/desktop/interface/clock-format
+        value: '24h'
+
+    - name: Set Clock Show Weekday
+      ansible.builtin.dconf:
+        key: /org/gnome/desktop/interface/clock-show-weekday
+        value: true
+
+    - name: Set Calendar Show Weekdate
+      ansible.builtin.dconf:
+        key: /org/gnome/desktop/calendar/show-weekdate
+        value: true
+
+    - name: Set Color Scheme Dark
+      ansible.builtin.dconf:
+        key: /org/gnome/desktop/interface/color-scheme
+        value: 'prefer-dark'
+
+    - name: Set Hostname
+      hostname:
+        name: asus_rog_zephyrus
+
