@@ -1,6 +1,9 @@
 # Todo
 
-- Configure Fedora Settings (Gnome)
+- syncthing
+  - keepass database
+  - images
+- git
 - Add gnome-tweaks (plus preconfigure them)
   - `dash-to-panel`
   - `vitals`
@@ -13,10 +16,6 @@
   - keepass
   - tor
   - vscode
-- git
-- syncthing
-  - keepass database
-  - images
 - firefox and settings
 - cronjob, calendar backup
 - thunderbird
