@@ -63,8 +63,9 @@
 
     - name: Set Static Hostname
       become: yes
-      replace:
-        path: /etc/hostname
-        regexp: '^.*$'
-        replace: 'asus_rog_zephyrus'
-
+      vars:
+        hostname: "asus_rog_zephyrus"
+      template:
+        src: hostname.j2
+        dest: /etc/hostname
+        mode: '0644'
