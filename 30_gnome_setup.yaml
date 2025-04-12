@@ -63,9 +63,4 @@
 
     - name: Set Static Hostname
       become: yes
-      vars:
-        hostname: "asus_rog_zephyrus"
-      template:
-        src: hostname.j2
-        dest: /etc/hostname
-        mode: '0644'
+      command: hostnamectl set-hostname "asus_rog_zephyrus"
