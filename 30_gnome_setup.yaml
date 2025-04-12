@@ -4,9 +4,11 @@
   connection: local
   tasks:
     - name: Install dconf-editor
+      become: yes
       package:
         name:
           - dconf-editor # GUI Editor for gsettings schemas and keys
+          - python3-psutil # required for dconf
         state: present
 
     - name: Disable screen dimming
@@ -32,7 +34,7 @@
     - name: Set Power Button Action
       ansible.builtin.dconf:
         key: /org/gnome/settings-daemon/plugins/power/power-button-action
-        value: 'interactive'
+        value: "'interactive'"
 
     - name: Set Show Battery Percentage
       ansible.builtin.dconf:
@@ -42,7 +44,7 @@
     - name: Set Clock 24h Format
       ansible.builtin.dconf:
         key: /org/gnome/desktop/interface/clock-format
-        value: '24h'
+        value: "'24h'"
 
     - name: Set Clock Show Weekday
       ansible.builtin.dconf:
@@ -57,9 +59,11 @@
     - name: Set Color Scheme Dark
       ansible.builtin.dconf:
         key: /org/gnome/desktop/interface/color-scheme
-        value: 'prefer-dark'
+        value: "'prefer-dark'"
 
-    - name: Set Hostname
-      hostname:
-        name: asus_rog_zephyrus
+    - name: Set Static Hostname
+      replace:
+        path: /etc/hostname
+        regexp: '^.*$'
+        replace: 'asus_rog_zephyrus'
 
