@@ -62,6 +62,7 @@
         value: "'prefer-dark'"
 
     - name: Set Static Hostname
+      become: yes
       replace:
         path: /etc/hostname
         regexp: '^.*$'
