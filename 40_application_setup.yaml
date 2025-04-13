@@ -1,0 +1,53 @@
+---
+
+- name: Syncthing
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install Syncthing
+      become: yes
+      package:
+        name:
+          - syncthing 
+        state: present
+
+    - name: Create syncthing user
+      become: yes
+      user:
+        name: syncthing
+        system: yes
+        create_home: yes
+        shell: /bin/false
+
+    - name: Copy syncthing service file
+      become: yes
+      copy:
+        src: /usr/lib/systemd/system/syncthing@.service
+        dest: /etc/systemd/system/syncthing@syncthing.service
+        mode: '0644'
+        remote_src: yes
+      notify: reload systemd
+
+    - name: Modify syncthing service file
+      become: yes
+      lineinfile:
+        path: /etc/systemd/system/syncthing@syncthing.service
+        regexp: '^User='
+        line: 'User=syncthing'
+        state: present
+      notify: reload systemd
+
+    - name: Enable and start syncthing service
+      become: yes
+      systemd:
+        name: syncthing@syncthing.service
+        enabled: yes
+        state: started
+        daemon_reload: yes
+
+  handlers:
+    - name: reload systemd
+      become: yes
+      systemd:
+        daemon_reload: yes
+
