@@ -93,10 +93,10 @@
         key: "/org/gnome/Ptyxis/Profiles/{{ default_profile_uuid.value }}/bold-is-bright"
         value: true
 
-    - name: Unset restore window size
+    - name: Set restore window size
       ansible.builtin.dconf:
         key: "/org/gnome/Ptyxis/restore-window-size"
-        value: false
+        value: true
 
     - name: Set fontsize
       ansible.builtin.dconf:
