@@ -1,8 +1,10 @@
 ---
-- name: Configure General Settings
+
+- name: Install dconf-editor
   hosts: localhost
   connection: local
   tasks:
+
     - name: Install dconf-editor
       become: yes
       package:
@@ -10,6 +12,11 @@
           - dconf-editor # GUI Editor for gsettings schemas and keys
           - python3-psutil # required for dconf
         state: present
+
+- name: Configure General Settings
+  hosts: localhost
+  connection: local
+  tasks:
 
     - name: Disable screen dimming
       ansible.builtin.dconf:
@@ -64,3 +71,34 @@
     - name: Set Static Hostname
       become: yes
       command: hostnamectl set-hostname "asus_rog_zephyrus"
+
+- name: Configure Gnome Terminal
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: Read default profile UUID
+      ansible.builtin.dconf:
+        key: /org/gnome/Ptyxis/default-profile-uuid
+        state: query
+      register: default_profile_uuid
+
+    - name: Set palette to xterm
+      ansible.builtin.dconf:
+        key: "/org/gnome/Ptyxis/Profiles/{{ default_profile_uuid.value }}/palette"
+        value: "'xterm'"
+
+    - name: Set use bright color for bold font
+      ansible.builtin.dconf:
+        key: "/org/gnome/Ptyxis/Profiles/{{ default_profile_uuid.value }}/bold-is-bright"
+        value: true
+
+    - name: Unset restore window size
+      ansible.builtin.dconf:
+        key: "/org/gnome/Ptyxis/restore-window-size"
+        value: false
+
+    - name: Set fontsize
+      ansible.builtin.dconf:
+        key: "/org/gnome/Ptyxis/font-name"
+        value: "'Monospace 14'"
