@@ -80,7 +80,7 @@
     - name: Read default profile UUID
       ansible.builtin.dconf:
         key: /org/gnome/Ptyxis/default-profile-uuid
-        state: query
+        state: read
       register: default_profile_uuid
 
     - name: Set palette to xterm
