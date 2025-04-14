@@ -101,4 +101,4 @@
     - name: Set fontsize
       ansible.builtin.dconf:
         key: "/org/gnome/Ptyxis/font-name"
-        value: "'Monospace 14'"
+        value: "'Monospace 12'"
