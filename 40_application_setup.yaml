@@ -65,7 +65,7 @@
       block:
         - name: Set device ID
           xml:
-            xml: "{{ configuration_file_path }}"
+            path: "{{ configuration_file_path }}"
             xpath: "/configuration/device"
             attributes:
               - name: "id"
@@ -73,7 +73,7 @@
 
         - name: Set device ID in default
           xml:
-            xml: "{{ configuration_file_path }}"
+            path: "{{ configuration_file_path }}"
             xpath: "/configuration/defaults/folder/device"
             attributes:
               - name: "id"
