@@ -58,7 +58,16 @@
   become_user: syncthing
   vars:
     configuration_file_path: /home/syncthing/.local/state/syncthing/config.xml
-    syncthing_local_id: "LGKEUQR-UGCJBV6-DRYUJGA-RMHLHT3-5LRBVUJ-KAVG2UF-VE5FDL5-KQ44IQN"
+  vars_prompt:
+
+    - name: syncthing_local_device_id
+      prompt: What is the syncthing device id of this device?
+      default: "LGKEUQR-UGCJBV6-DRYUJGA-RMHLHT3-5LRBVUJ-KAVG2UF-VE5FDL5-KQ44IQN"
+
+    - name: syncthing_mobile_device_id
+      prompt: What is the syncthing device id of the mobile device?
+      default: "G7C7IQD-IJSVW4S-XBKZWBF-PQIJCTP-YOCLBKW-A7PS6IV-OE4ID3N-HLMLBAZ"
+
   tasks:
 
     - name: Set syncthing device ID
@@ -68,12 +77,12 @@
             path: "{{ configuration_file_path }}"
             xpath: "/configuration/device"
             attribute: id
-            value: "{{ syncthing_local_id }}"
+            value: "{{ syncthing_local_device_id }}"
 
         - name: Set device ID in default
           xml:
             path: "{{ configuration_file_path }}"
             xpath: "/configuration/defaults/folder/device"
             attribute: id
-            value: "{{ syncthing_local_id }}"
+            value: "{{ syncthing_local_device_id }}"
 
