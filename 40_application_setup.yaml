@@ -67,15 +67,13 @@
           xml:
             path: "{{ configuration_file_path }}"
             xpath: "/configuration/device"
-            attribute:
-              - name: "id"
-                value: "{{ syncthing_local_id }}"
+            attribute: id
+            value: "{{ syncthing_local_id }}"
 
         - name: Set device ID in default
           xml:
             path: "{{ configuration_file_path }}"
             xpath: "/configuration/defaults/folder/device"
-            attribute:
-              - name: "id"
-                value: "{{ syncthing_local_id }}"
+            attribute: id
+            value: "{{ syncthing_local_id }}"
 
