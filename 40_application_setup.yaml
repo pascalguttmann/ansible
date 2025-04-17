@@ -1,6 +1,6 @@
 ---
 
-- name: Syncthing
+- name: Install Syncthing
   hosts: localhost
   connection: local
   tasks:
@@ -50,4 +50,32 @@
       become: yes
       systemd:
         daemon_reload: yes
+
+- name: Configure Syncthing
+  hosts: localhost
+  connection: local
+  become: yes
+  become_user: syncthing
+  vars:
+    configuration_file_path: /home/syncthing/.local/state/syncthing/config.xml
+    syncthing_local_id: "LGKEUQR-UGCJBV6-DRYUJGA-RMHLHT3-5LRBVUJ-KAVG2UF-VE5FDL5-KQ44IQN"
+  tasks:
+
+    - name: Set syncthing device ID
+      block:
+        - name: Set device ID
+          xml:
+            xml: "{{ configuration_file_path }}"
+            xpath: "/configuration/device"
+            attributes:
+              - name: "id"
+                value: "{{ syncthing_local_id }}"
+
+        - name: Set device ID in default
+          xml:
+            xml: "{{ configuration_file_path }}"
+            xpath: "/configuration/defaults/folder/device"
+            attributes:
+              - name: "id"
+                value: "{{ syncthing_local_id }}"
 
