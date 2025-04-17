@@ -67,7 +67,7 @@
           xml:
             path: "{{ configuration_file_path }}"
             xpath: "/configuration/device"
-            attributes:
+            attribute:
               - name: "id"
                 value: "{{ syncthing_local_id }}"
 
@@ -75,7 +75,7 @@
           xml:
             path: "{{ configuration_file_path }}"
             xpath: "/configuration/defaults/folder/device"
-            attributes:
+            attribute:
               - name: "id"
                 value: "{{ syncthing_local_id }}"
 
