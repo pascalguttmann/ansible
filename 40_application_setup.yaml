@@ -78,19 +78,8 @@
     photos_directory_path: /home/pagu/Documents/000000_Photos
     camera_directory_path: /home/pagu/Documents/000000_Photos/000000_UNSORTED
     whatsappimg_directory_path: /home/pagu/Documents/000000_Photos/000000_WHATSAPP
-  vars_prompt:
-
-    - name: local_device_id
-      prompt: What is the syncthing device id of this device?
-      default: "LGKEUQR-UGCJBV6-DRYUJGA-RMHLHT3-5LRBVUJ-KAVG2UF-VE5FDL5-KQ44IQN"
-
-    - name: mobile_device_id
-      prompt: What is the syncthing device id of the mobile device?
-      default: "G7C7IQD-IJSVW4S-XBKZWBF-PQIJCTP-YOCLBKW-A7PS6IV-OE4ID3N-HLMLBAZ"
-
-    - name: keepass_folder_id
-      prompt: What is the Folder ID for "Keepass"?
-      default: y4he9-oio5q
+    local_device_id: "LGKEUQR-UGCJBV6-DRYUJGA-RMHLHT3-5LRBVUJ-KAVG2UF-VE5FDL5-KQ44IQN"
+    mobile_device_id: "G7C7IQD-IJSVW4S-XBKZWBF-PQIJCTP-YOCLBKW-A7PS6IV-OE4ID3N-HLMLBAZ"
 
   tasks:
 
@@ -137,3 +126,10 @@
         group: syncthing
         mode: '0770'
         recurse: yes
+    
+    - name: Copy syncthing config
+      become: yes
+      copy:
+        src: syncthing_config.xml.j2
+        dest: "{{ configuration_file_path }}"
+        mode: '0750'
