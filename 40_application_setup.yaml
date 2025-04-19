@@ -86,5 +86,5 @@
         path: "{{ keepass_directory_path }}"
         owner: pagu
         group: syncthing
-        mode: '0750'
+        mode: '0770'
         recurse: yes
