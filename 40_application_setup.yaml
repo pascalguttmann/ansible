@@ -21,6 +21,15 @@
         create_home: yes
         shell: /bin/false
 
+    - name: Set traverse and read syncthing home
+      become: yes
+      file:
+        path: /home/syncthing
+        owner: syncthing
+        group: syncthing
+        mode: '0750'
+        recurse: yes
+
     - name: Add pagu to syncthing group
       become: yes
       user:
