@@ -66,6 +66,9 @@
   vars:
     configuration_file_path: /home/syncthing/.local/state/syncthing/config.xml
     keepass_directory_path: /home/pagu/Documents/240801_keepass_syncthing
+    photos_directory_path: /home/pagu/Documents/000000_Photos
+    camera_directory_path: /home/pagu/Documents/000000_Photos/000000_UNSORTED
+    whatsappimg_directory_path: /home/pagu/Documents/000000_Photos/000000_WHATSAPP
   vars_prompt:
 
     - name: local_device_id
@@ -90,10 +93,37 @@
         group: pagu
         mode: '0710'
 
-    - name: Set keepass directory group
+    - name: Set directory group for keepass
       become: yes
       file:
         path: "{{ keepass_directory_path }}"
+        owner: pagu
+        group: syncthing
+        mode: '0770'
+        recurse: yes
+
+    - name: Set directory group for photos
+      become: yes
+      file:
+        path: "{{ photos_directory_path }}"
+        owner: pagu
+        group: syncthing
+        mode: '0770'
+        recurse: yes
+
+    - name: Set directory group for camera
+      become: yes
+      file:
+        path: "{{ camera_directory_path }}"
+        owner: pagu
+        group: syncthing
+        mode: '0770'
+        recurse: yes
+
+    - name: Set directory group for whatsappimg
+      become: yes
+      file:
+        path: "{{ whatsappimg_directory_path }}"
         owner: pagu
         group: syncthing
         mode: '0770'
