@@ -15,6 +15,8 @@
       become: yes
       user:
         name: syncthing
+        groups: pagu
+        append: yes
         system: yes
         create_home: yes
         shell: /bin/false
@@ -79,6 +81,14 @@
       default: y4he9-oio5q
 
   tasks:
+
+    - name: Set traverse pagu home
+      become: yes
+      file:
+        path: /home/pagu
+        owner: pagu
+        group: pagu
+        mode: '0710'
 
     - name: Set keepass directory group
       become: yes
