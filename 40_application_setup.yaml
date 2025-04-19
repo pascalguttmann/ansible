@@ -1,5 +1,15 @@
 ---
 
+- name: Install Applications
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install Packages
+      become: yes
+      package:
+        name:
+          - keepassxc
+
 - name: Install Syncthing
   hosts: localhost
   connection: local

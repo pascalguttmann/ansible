@@ -1,8 +1,5 @@
 # Todo
 
-- syncthing
-  - keepass database
-  - images
 - git
 - Add gnome-tweaks (plus preconfigure them)
   - `dash-to-panel`
@@ -13,7 +10,6 @@
   - btop
   - spotify
   - evince
-  - keepass
   - tor
   - vscode
 - firefox and settings
