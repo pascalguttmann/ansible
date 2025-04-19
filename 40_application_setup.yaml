@@ -60,13 +60,17 @@
     configuration_file_path: /home/syncthing/.local/state/syncthing/config.xml
   vars_prompt:
 
-    - name: syncthing_local_device_id
+    - name: local_device_id
       prompt: What is the syncthing device id of this device?
       default: "LGKEUQR-UGCJBV6-DRYUJGA-RMHLHT3-5LRBVUJ-KAVG2UF-VE5FDL5-KQ44IQN"
 
-    - name: syncthing_mobile_device_id
+    - name: mobile_device_id
       prompt: What is the syncthing device id of the mobile device?
       default: "G7C7IQD-IJSVW4S-XBKZWBF-PQIJCTP-YOCLBKW-A7PS6IV-OE4ID3N-HLMLBAZ"
+
+    - name: keepass_folder_id
+      prompt: What is the Folder ID for "Keepass"?
+      default: y4he9-oio5q
 
   tasks:
 
@@ -77,12 +81,36 @@
             path: "{{ configuration_file_path }}"
             xpath: "/configuration/device"
             attribute: id
-            value: "{{ syncthing_local_device_id }}"
+            value: "{{ local_device_id }}"
 
         - name: Set device ID in default
           xml:
             path: "{{ configuration_file_path }}"
             xpath: "/configuration/defaults/folder/device"
             attribute: id
-            value: "{{ syncthing_local_device_id }}"
+            value: "{{ local_device_id }}"
 
+    - name: Add keypass_folder
+      xml:
+        path: "{{ configuration_file_path }}"
+        xpath: /configuration
+        add_children:
+          - folder:
+            id: "{{ keepass_folder_id }}"
+            path: "/home/pagu/240801_keepass_syncthing"
+            type: sendreceive
+            rescanIntervalS: 3600
+            fsWatcherEnabled: true
+            fsWatcherDelayS: 10
+            fsWatcherTimeoutS: 0
+            ignorePerms: false
+            autoNormalize: true
+            _:
+              - filesystemType: basic
+              - device:
+                id: "{{ local_device_id }}"
+                introducedBy: ""
+                _:
+                  - encryptionPassword: ""
+              - minDiskFree: 32
+                unit: GB
