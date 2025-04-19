@@ -96,21 +96,57 @@
         xpath: /configuration
         add_children:
           - folder:
-            id: "{{ keepass_folder_id }}"
-            path: "/home/pagu/240801_keepass_syncthing"
-            type: sendreceive
-            rescanIntervalS: 3600
-            fsWatcherEnabled: true
-            fsWatcherDelayS: 10
-            fsWatcherTimeoutS: 0
-            ignorePerms: false
-            autoNormalize: true
-            _:
-              - filesystemType: basic
-              - device:
-                id: "{{ local_device_id }}"
-                introducedBy: ""
-                _:
-                  - encryptionPassword: ""
-              - minDiskFree: 32
-                unit: GB
+              id: "{{ keepass_folder_id }}"
+              path: "/home/pagu/240801_keepass_syncthing"
+              type: sendreceive
+              rescanIntervalS: 3600
+              fsWatcherEnabled: true
+              fsWatcherDelayS: 10
+              fsWatcherTimeoutS: 0
+              ignorePerms: false
+              autoNormalize: true
+              _:
+                - filesystemType: basic
+                - device:
+                    id: "{{ local_device_id }}"
+                    introducedBy: ""
+                    _:
+                      - encryptionPassword: ""
+                - minDiskFree:
+                    _: 32
+                    unit: GB
+                - versioning:
+                    _:
+                      - cleanupIntervalS: 3600
+                      - fsPath: ""
+                      - fsType: basic
+                - copiers: 0
+                - pullerMaxPendingKiB: 0
+                - hashers: 0
+                - order: random
+                - ignoreDelete: false
+                - scanProgressIntervalS: 0
+                - pullerPauseS: 0
+                - maxConflicts: 10
+                - disableSparseFiles: false
+                - disableTempIndexes: false
+                - paused: false
+                - weakHashThresholdPct: 25
+                - markerName: .stfolder
+                - copyOwnershipFromParent: false
+                - modTimeWindowS: 0
+                - maxConcurrentWrites: 2
+                - disableFsync: false
+                - blockPullOrder: standard
+                - copyRangeMethod: standard
+                - caseSensitiveFS: false
+                - junctionsAsDirs: false
+                - syncOwnership: false
+                - sendOwnership: false
+                - syncXattrs: false
+                - sendXattrs: false
+                - xattrFilter:
+                    _:
+                      - maxSingleEntrySize: 1024
+                      - maxTotalSize: 4096
+
