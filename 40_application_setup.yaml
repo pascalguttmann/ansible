@@ -113,7 +113,8 @@
                     _:
                       - encryptionPassword: ""
                 - minDiskFree:
-                    _: "32"
+                    _: 
+                      - "32"
                     unit: "GB"
                 - versioning:
                     _:
