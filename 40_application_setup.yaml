@@ -61,10 +61,9 @@
 - name: Configure Syncthing
   hosts: localhost
   connection: local
-  become: yes
-  become_user: syncthing
   vars:
     configuration_file_path: /home/syncthing/.local/state/syncthing/config.xml
+    keepass_directory_path: /home/pagu/Documents/240801_keepass_syncthing
   vars_prompt:
 
     - name: local_device_id
@@ -79,3 +78,11 @@
       prompt: What is the Folder ID for "Keepass"?
       default: y4he9-oio5q
 
+  tasks:
+
+    - name: Set keepass directory group
+      become: yes
+      file:
+        path: "{{ keepass_directory_path }}"
+        group: syncthing
+        recurse: yes
