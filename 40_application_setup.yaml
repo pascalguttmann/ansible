@@ -84,5 +84,7 @@
       become: yes
       file:
         path: "{{ keepass_directory_path }}"
+        owner: pagu
         group: syncthing
+        mode: '0750'
         recurse: yes
