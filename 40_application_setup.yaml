@@ -9,6 +9,7 @@
       package:
         name:
           - keepassxc
+          - openssh-askpass
 
 - name: Install Syncthing
   hosts: localhost
