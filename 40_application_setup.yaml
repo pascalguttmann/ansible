@@ -157,11 +157,9 @@
   tasks:
 
     - name: Check if repository exists
-      shell: git rev-parse --is-inside-work-tree
-      args:
-        chdir: /home/pagu/
-      register: git_revparse
-      ignore_errors: yes
+      stat:
+        path: /home/pagu/.git
+      register: stat_result
 
     - name: Initialize repository
       command: "{{ item }}"
@@ -170,8 +168,7 @@
       loop:
         - "git init"
         - "git remote add origin {{ repository }}"
-        - "git pull origin master"
-      when: git_revparse.rc != 0
+      when: not stat_result.stat.exists
 
     - name: Update repository
       git:
