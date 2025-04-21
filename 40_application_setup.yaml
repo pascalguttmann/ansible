@@ -143,3 +143,16 @@
         src: syncthing_config.xml.j2
         dest: "{{ configuration_file_path }}"
         mode: '0750'
+
+- name: Git - pascalguttmann/dotfiles
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Clone or update repository
+    git:
+      repo: https://github.com/pascalguttmann/dotfiles.git
+      dest: /home/pagu/
+      version: main
+      clone: yes
+      update: yes
+
