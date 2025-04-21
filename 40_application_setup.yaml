@@ -39,6 +39,7 @@
         group: syncthing
         mode: '0750'
         recurse: yes
+        state: directory
 
     - name: Add pagu to syncthing group
       become: yes
@@ -109,6 +110,7 @@
         group: syncthing
         mode: '0770'
         recurse: yes
+        state: directory
 
     - name: Set directory group for photos
       become: yes
@@ -118,6 +120,7 @@
         group: syncthing
         mode: '0770'
         recurse: yes
+        state: directory
 
     - name: Set directory group for camera
       become: yes
@@ -127,6 +130,7 @@
         group: syncthing
         mode: '0770'
         recurse: yes
+        state: directory
 
     - name: Set directory group for whatsappimg
       become: yes
@@ -136,6 +140,7 @@
         group: syncthing
         mode: '0770'
         recurse: yes
+        state: directory
     
     - name: Copy syncthing config
       become: yes
