@@ -139,7 +139,7 @@
     
     - name: Copy syncthing config
       become: yes
-      copy:
+      template:
         src: syncthing_config.xml.j2
         dest: "{{ configuration_file_path }}"
         mode: '0750'
