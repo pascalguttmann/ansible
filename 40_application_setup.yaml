@@ -152,13 +152,31 @@
 - name: Git - pascalguttmann/dotfiles
   hosts: localhost
   gather_facts: no
+  vars:
+    repository: https://github.com/pascalguttmann/dotfiles.git
   tasks:
-  - name: Clone or update repository
-    git:
-      repo: https://github.com/pascalguttmann/dotfiles.git
-      dest: /home/pagu/
-      version: main
-      clone: yes
-      update: yes
-      force: yes
+
+    - name: Check if repository exists
+      shell: git rev-parse --is-inside-work-tree
+      args:
+        chdir: /home/pagu/
+      register: git_revparse
+      ignore_errors: yes
+
+    - name: Initialize repository
+      command: "{{ item }}"
+      args:
+        chdir: /home/pagu/
+      loop:
+        - "git init"
+        - "git remote add origin {{ repository }}"
+        - "git pull origin master"
+      when: git_revparse.rc != 0
+
+    - name: Update repository
+      git:
+        repo: "{{ repository }}"
+        dest: /home/pagu/
+        version: main
+        update: yes
 
