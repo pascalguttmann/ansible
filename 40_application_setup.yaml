@@ -160,4 +160,5 @@
       version: main
       clone: yes
       update: yes
+      force: yes
 
