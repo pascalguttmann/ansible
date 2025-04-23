@@ -153,7 +153,7 @@
   hosts: localhost
   gather_facts: no
   vars:
-    repository: https://github.com/pascalguttmann/dotfiles.git
+    repository: git@github.com:pascalguttmann/dotfiles.git
   tasks:
 
     - name: Check if repository exists
