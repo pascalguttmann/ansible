@@ -1,6 +1,5 @@
 # Todo
 
-- git
 - Add gnome-tweaks (plus preconfigure them)
   - `dash-to-panel`
   - `vitals`
