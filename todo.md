@@ -7,7 +7,6 @@
   - `power-profile-indicator`
 - Install software
   - btop
-  - spotify
   - evince
   - tor
   - vscode
