@@ -11,6 +11,7 @@
           - keepassxc
           - btop
           - evince
+          - torbrowser-launcher
 
 - name: Setup Snap
   hosts: localhost

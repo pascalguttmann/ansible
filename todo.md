@@ -6,7 +6,6 @@
   - `supergfxctl-gex`
   - `power-profile-indicator`
 - Install software
-  - tor
   - vscode
 - firefox and settings
 - cronjob, calendar backup
