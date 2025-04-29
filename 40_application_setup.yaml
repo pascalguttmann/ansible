@@ -10,6 +10,22 @@
         name:
           - keepassxc
 
+- name: Setup Snap
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Install Snap
+      package:
+        name:
+          - snapd
+
+    - name: Create symbolic link
+      file:
+        src: "/var/lib/snapd/snap"
+        dest: "/snap"
+        state: link
+
 - name: Install Syncthing
   hosts: localhost
   connection: local
@@ -177,3 +193,11 @@
         version: main
         update: yes
 
+- name: Snap - Install Spotify
+  hosts: localhost
+  tasks:
+
+    - name: Install spotify
+      become: yes
+      community.general.snap:
+        name: spotify
