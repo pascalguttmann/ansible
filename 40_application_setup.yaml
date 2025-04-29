@@ -9,6 +9,7 @@
       package:
         name:
           - keepassxc
+          - btop
 
 - name: Setup Snap
   hosts: localhost
