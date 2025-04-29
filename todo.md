@@ -5,8 +5,6 @@
   - `vitals`
   - `supergfxctl-gex`
   - `power-profile-indicator`
-- Install software
-  - vscode
 - firefox and settings
 - cronjob, calendar backup
 - thunderbird
