@@ -10,6 +10,7 @@
         name:
           - keepassxc
           - btop
+          - evince
 
 - name: Setup Snap
   hosts: localhost

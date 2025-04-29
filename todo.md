@@ -6,7 +6,6 @@
   - `supergfxctl-gex`
   - `power-profile-indicator`
 - Install software
-  - evince
   - tor
   - vscode
 - firefox and settings
