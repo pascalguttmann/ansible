@@ -5,7 +5,6 @@
   - `vitals`
   - `supergfxctl-gex`
   - `power-profile-indicator`
-- firefox and settings
 - cronjob, calendar backup
 - thunderbird
 - neovim (astrovim ?)
