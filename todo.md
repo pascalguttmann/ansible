@@ -9,3 +9,7 @@
 - thunderbird
 - neovim (astrovim ?)
 - drucker, brother utilities
+- bashrc
+  - alias ll
+  - alias l
+  - add git branch display
