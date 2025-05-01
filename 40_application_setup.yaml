@@ -12,6 +12,7 @@
           - btop
           - evince
           - torbrowser-launcher
+          - thunderbird
 
 - name: Setup Snap
   hosts: localhost
