@@ -72,6 +72,11 @@
       become: yes
       command: hostnamectl set-hostname "asus_rog_zephyrus"
 
+    - name: Set button-layout
+      ansible.builtin.dconf:
+        key: "/org/gnome/desktop/wm/preferences/button-layout"
+        value: "'appmenu:minimize,maximize,close'"
+
 - name: Configure Gnome Terminal
   hosts: localhost
   connection: local
@@ -102,3 +107,36 @@
       ansible.builtin.dconf:
         key: "/org/gnome/Ptyxis/font-name"
         value: "'Monospace 12'"
+
+- name: Gnome Extensions
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: Install Tweaks and Extensions
+      become: yes
+      package:
+        name:
+          - gnome-tweaks
+          - gnome-shell-extension-dash-to-panel
+        state: present
+
+    - name: Enable Dash to Panel extension
+      command: gnome-extensions enable dash-to-panel@jderose9.github.com
+      ignore_errors: yes  # Ignore errors if the extension is already enabled
+
+    - name: Set appicon margin
+      ansible.builtin.dconf:
+        key: "/org/gnome/shell/extensions/dash-to-panel/appicon-margin"
+        value: 4
+
+    - name: Set panel hotkeys
+      ansible.builtin.dconf:
+        key: "/org/gnome/shell/extensions/dash-to-panel/hot-keys"
+        value: true
+
+    - name: Set shortcut previews
+      ansible.builtin.dconf:
+        key: "/org/gnome/shell/extensions/dash-to-panel/shortcut-previews"
+        value: true
+
