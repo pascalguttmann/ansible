@@ -13,6 +13,7 @@
           - evince
           - torbrowser-launcher
           - thunderbird
+          - gh
 
 - name: Setup Snap
   hosts: localhost
