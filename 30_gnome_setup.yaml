@@ -98,6 +98,11 @@
         key: "/org/gnome/desktop/wm/preferences/button-layout"
         value: "'appmenu:minimize,maximize,close'"
 
+    - name: Map caps to esc
+      ansible.builtin.dconf:
+        key: "/org/gnome/desktop/input-sources/xkb-options"
+        value: "['terminate:ctrl_alt_bksp', 'caps:escape']"
+
 - name: Configure Gnome Terminal
   hosts: localhost
   connection: local
