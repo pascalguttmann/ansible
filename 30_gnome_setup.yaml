@@ -13,6 +13,27 @@
           - python3-psutil # required for dconf
         state: present
 
+- name: Disalbe Wifi power saver profile
+  become: yes
+  hosts: localhost
+  connection: local
+  tasks:
+
+    - name: create wifi-powersave-off.conf
+      notify: Restart NetworkManager
+      copy:
+        dest: /etc/NetworkManager/conf.d/wifi-powersave-off.conf
+        content: |
+          [connection]
+          wifi.powersave = 2
+
+  handlers:
+
+    - name: Restart NetworkManager
+      service:
+        name: NetworkManager
+        state: restarted
+
 - name: Configure General Settings
   hosts: localhost
   connection: local
