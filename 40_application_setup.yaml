@@ -14,6 +14,7 @@
           - torbrowser-launcher
           - thunderbird
           - gh
+          - joystick-support
 
 - name: Setup Snap
   hosts: localhost
