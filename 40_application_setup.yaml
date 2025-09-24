@@ -10,6 +10,28 @@
         name:
           - keepassxc
           - openssh-askpass
+          - btop
+          - evince
+          - torbrowser-launcher
+          - thunderbird
+          - gh
+          - joystick-support
+
+- name: Setup Snap
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Install Snap
+      package:
+        name:
+          - snapd
+
+    - name: Create symbolic link
+      file:
+        src: "/var/lib/snapd/snap"
+        dest: "/snap"
+        state: link
 
 - name: Install Syncthing
   hosts: localhost
@@ -154,7 +176,7 @@
   hosts: localhost
   gather_facts: no
   vars:
-    repository: https://github.com/pascalguttmann/dotfiles.git
+    repository: git@github.com:pascalguttmann/dotfiles.git
   tasks:
 
     - name: Check if repository exists
@@ -178,3 +200,17 @@
         version: main
         update: yes
 
+- name: Snap Installation
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+
+    - name: Install spotify
+      community.general.snap:
+        name: spotify
+
+    - name: Install VS Codium
+      community.general.snap:
+        name: codium
+        classic: yes
