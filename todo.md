@@ -1,6 +1,5 @@
 # Todo
 
-- cronjob, calendar backup
 - neovim (astrovim ?)
 - drucker, brother utilities
 - bashrc

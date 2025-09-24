@@ -16,6 +16,7 @@
           - thunderbird
           - gh
           - joystick-support
+          - cronie
 
 - name: Setup Snap
   hosts: localhost
@@ -171,6 +172,20 @@
         src: syncthing_config.xml.j2
         dest: "{{ configuration_file_path }}"
         mode: '0750'
+
+- name: Configure Cronjobs
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  become: yes
+  tasks:
+    - name: Backup dav.pascal-guttmann.de radicale database daily
+      cron:
+        name: "pagu@dav.pascal-guttmann.de backup"
+        minute: "0"
+        hour: "2"
+        job: "/home/pagu/Documents/000000_repository/radicale/backup.sh"
+        user: pagu
 
 - name: Git - pascalguttmann/dotfiles
   hosts: localhost
