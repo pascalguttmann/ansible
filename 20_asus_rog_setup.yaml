@@ -30,13 +30,13 @@
   connection: local
   tasks:
     - name: Set battery charge limit
-      command: /usr/bin/asusctl -c 100
+      command: /usr/bin/asusctl battery limit 100
 
     - name: Enable keyboard lighting
-      command: /usr/bin/asusctl aura-power keyboard --awake
+      command: /usr/bin/asusctl aura power keyboard --awake
 
     - name: Set keyboard lighting static
-      command: /usr/bin/asusctl aura static
+      command: /usr/bin/asusctl aura effect static -c ffffff
 
     - name: Disable slash lighting
       command: /usr/bin/asusctl slash --disable
