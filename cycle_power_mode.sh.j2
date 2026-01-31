@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # Change to the next power mode
-/usr/bin/asusctl profile --next
+/usr/bin/asusctl profile next
 
 # Get the active profile
-active_profile=$(/usr/bin/asusctl profile --profile-get | grep "Active profile is " | sed 's/.* \(.*\)$/\1/')
+active_profile=$(/usr/bin/asusctl profile get | grep "Active profile: " | sed 's/.* \(.*\)$/\1/')
 
 # Show notification of the active profile
 notify-send "Power Mode" "$active_profile"
-
