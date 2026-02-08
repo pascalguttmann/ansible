@@ -96,7 +96,7 @@
     - name: Set button-layout
       ansible.builtin.dconf:
         key: "/org/gnome/desktop/wm/preferences/button-layout"
-        value: "'appmenu:maximize,close'"
+        value: "'appmenu:minimize,maximize,close'"
 
     - name: Map caps to esc
       ansible.builtin.dconf:
