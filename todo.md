@@ -1,7 +1,6 @@
 # Todo
 
 - neovim (astrovim ?)
-- drucker, brother utilities
 - bashrc
   - alias ll
   - alias l
